@@ -1,22 +1,22 @@
 "use strict";
 app.service("gameService", function($timeout) {
 	this.createGameBoard = function() {
-		var maxRows = 9;
-		var maxCols = 9;
-		var mines = 10;
-		var minefield = {};
-		var currentLocation = [];
+		let maxRows = 9;
+		let maxCols = 9;
+		let mines = 10;
+		let minefield = {};
+		let currentLocation = [];
     	minefield.rows = [];
 
     	//populate the rows
-    	for(var i = 0; i < maxRows; i++) {
-        	var row = {};
+    	for(let i = 0; i < maxRows; i++) {
+        	let row = {};
         	row.spots = [];
         	row.id = i;
         	
         	//populate the spots
-	        for(var j = 0; j < maxCols; j++) {
-	            var spot = {};
+	        for(let j = 0; j < maxCols; j++) {
+	            let spot = {};
 	            spot.isClicked = false;
 	            spot.isFlag = false;
 	            spot.content="empty";
@@ -26,7 +26,7 @@ app.service("gameService", function($timeout) {
         
         	minefield.rows.push(row);
     	}
-    	
+
     	return minefield;
 	}
 
