@@ -1,7 +1,11 @@
 <div class="game-container" ng-controller="gameCtrl">
 	<div class="game">
 		<table class="center">
-			<h1>Create board here!</h1>
+			<tr ng-repeat="row in gameBoard.rows">
+				<td ng-repeat="spot in row.spots">
+					<img src="img/unClicked.png">
+				</td>
+			</tr> 
 		</table>
 	</div>
 </div>
