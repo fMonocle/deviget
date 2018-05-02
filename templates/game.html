@@ -1,11 +1,29 @@
 <div class="game-container" ng-controller="gameCtrl">
 	<div class="game">
 		<table class="center">
-			<tr ng-repeat="row in gameBoard.rows">
-				<td ng-repeat="spot in row.spots">
-					<img src="img/unClicked.png">
+			<tr ng-repeat="row in gameBoard.rows" ng-click="setRow(row)">
+				<td ng-repeat="square in row.squares" ng-click="showSquare(square)" ng-right-click="flag(square)">
+					<img ng-show="!square.isClicked && !square.isFlag" src="img/unClicked.png">
+					<img ng-show="!square.isClicked && square.isFlag" src="img/flag.png">
+					<img ng-show="square.isClicked && square.content === 'empty'" src="img/Clicked.png">
+					<img ng-show="square.isClicked && square.content === 'mine'" src="img/mine.png">
+					<img ng-show="square.isClicked && square.content === 'redMine'" src="img/redMine.png">
+					<img ng-show="square.isClicked && square.content === 1" src="img/1.png">
+					<img ng-show="square.isClicked && square.content === 2" src="img/2.png">
+					<img ng-show="square.isClicked && square.content === 3" src="img/3.png">
+					<img ng-show="square.isClicked && square.content === 4" src="img/4.png">
+					<img ng-show="square.isClicked && square.content === 5" src="img/5.png">
+					<img ng-show="square.isClicked && square.content === 6" src="img/6.png">
+					<img ng-show="square.isClicked && square.content === 7" src="img/7.png">
+					<img ng-show="square.isClicked && square.content === 8" src="img/8.png">
 				</td>
-			</tr> 
+			</tr>
 		</table>
+		<modal-dialog class="center" show='modalShown' width='300px' height='25%'>
+			<h3>{{text}}</h3>
+			<span>Play again?</span>
+			<button class="btn btn-default right-side-btn" ng-click='resetGame()'>Yes</button>
+			<button class="btn btn-default right-side-btn" ng-click='goHome()'>No</button>
+		</modal-dialog>
 	</div>
 </div>
