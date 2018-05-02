@@ -1,17 +1,15 @@
 "use strict";
-app.controller("gameCtrl", function($scope, $timeout, $location, gameService) {
+app.controller("gameHardCtrl", function($scope, $timeout, $location, gameHardService) {
 
-	$scope.gameBoard = gameService.createGameBoard();
+	$scope.gameBoard = gameHardService.createGameBoard();
 	$scope.modalShown = false;
 	$scope.winner = false;
 	$scope.loser = false;
-	$scope.smileOpen = false;
 
 	$scope.showSquare = function(square) {
 		if (square.isFlag) {
 			return;
 		}
-		//Block click after win or lose.
 		if ($scope.winner || $scope.loser) {
 			return;
 		}
@@ -28,19 +26,19 @@ app.controller("gameCtrl", function($scope, $timeout, $location, gameService) {
 			x: $scope.x,
 			y: $scope.y
 		}
-		gameService.expand(location, $scope.gameBoard);
-		let result = gameService.checkSquareClicked($scope.gameBoard);
+		gameHardService.expand(location, $scope.gameBoard);
+		let result = gameHardService.checkSquareClicked($scope.gameBoard);
     	if (result === "won") {
-    		$scope.winner = true;
+    		$scope.wonMessage = true;
     		$timeout(function() {
 	    		$scope.modalShown = !$scope.modalShown;
-	    		$scope.text = "You are a winner!"
+	    		$scope.text = "hard winner!"
 	    	}, 750);
 	    } else if (result === "lost") {
-	    	$scope.loser = true;
+	    	$scope.lostMessage = true;
 	    	$timeout(function() {
 	    		$scope.modalShown = !$scope.modalShown;
-	    		$scope.text ="loser haha!"
+	    		$scope.text ="hard loser haha!"
 	    	}, 750);
 	    }
 	}
@@ -53,7 +51,7 @@ app.controller("gameCtrl", function($scope, $timeout, $location, gameService) {
 	};
 
 	$scope.resetGame = function() {
-		$scope.gameBoard = gameService.createGameBoard();
+		$scope.gameBoard = gameHardService.createGameBoard();
 		$scope.modalShown = false;
 		$scope.winner = false;
 		$scope.loser = false;
@@ -62,4 +60,6 @@ app.controller("gameCtrl", function($scope, $timeout, $location, gameService) {
 	$scope.goHome = function() {
 		$location.path("/");
 	}
+
+
 });

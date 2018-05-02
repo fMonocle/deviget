@@ -37,7 +37,8 @@
       <div class="container">
         <form class="text-center choices" ng-controller="mainCtrl">
           <h3>Push start to play!</h3>
-          <button class="btn btn-primary" ng-click="createGame()">START</button>
+          <button class="btn btn-primary" ng-click="createGame()">EASY</button>
+          <button class="btn btn-primary" ng-click="createHardGame()">HARD</button>
         </form>
       </div>
     </div>
@@ -54,9 +55,11 @@
         <script src="app.js"></script>
         <script src="controllers/mainCtrl.js"></script>
         <script src="controllers/gameCtrl.js"></script>
+        <script src="controllers/gameHardCtrl.js"></script>
 
         <script src="services/mainService.js"></script>
         <script src="services/gameService.js"></script>
+        <script src="services/gameHardService.js"></script>
 
         <script src="directives/rcDirective.js"></script>
         <script src="directives/modalDirective.js"></script>

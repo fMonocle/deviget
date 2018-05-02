@@ -1,6 +1,11 @@
 .game-container {
 	width: 20%;
-    margin: 0 auto;
+  margin: 0 auto;
+}
+
+.game-hard-container {
+  width: 30%;
+  margin: 0 auto;
 }
 
 .ng-modal-overlay {

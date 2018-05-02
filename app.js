@@ -5,6 +5,10 @@ let app = angular.module("minesweeper", ["ngRoute"])
 		templateUrl: "templates/game.html",
 		controller: "gameCtrl"
 	})
+	.when("/hard", {
+		templateUrl: "templates/gameHard.html",
+		controller: "gameHardCtrl"
+	})
 	.otherwise({
 		redirectTo: "/"
 	});

@@ -1,10 +1,10 @@
 "use strict";
-app.service("gameService", function($timeout) {
+app.service("gameHardService", function() {
 
 	this.createGameBoard = function() {
-		let maxRows = 9;
-		let maxCols = 9;
-		let mines = 10;
+		let maxRows = 15;
+		let maxCols = 15;
+		let mines = 40;
 		let minefield = {};
 		let currentLocation = [];
     	minefield.rows = [];
@@ -33,8 +33,8 @@ app.service("gameService", function($timeout) {
 
 		//populate one mine
 		let populateMine = function(minefield) {
-				let row = Math.floor(Math.random() * 8.99999);
-				let column = Math.floor(Math.random() * 8.99999);
+				let row = Math.floor(Math.random() * maxRows - 0.00001);
+				let column = Math.floor(Math.random() * maxCols - 0.00001);
 				let square = getSquare(minefield, row, column);
 				if (square.content === "mine") {
 					populateMine(minefield);
@@ -43,6 +43,7 @@ app.service("gameService", function($timeout) {
 				square.content = "mine";
 		}
 
+		//randomize the mines that were populated
 		let randomizeMines = function(minefield) {
 			for (let i = 0; i < mines; i++) {
 				populateMine(minefield);
@@ -51,6 +52,7 @@ app.service("gameService", function($timeout) {
 
 		randomizeMines(minefield, getSquare);
 
+		//calculate the number of mines touching that square
 		let calculateNumber = function(minefield, row, column) {
 			let thissquare = getSquare(minefield, row, column);
 
@@ -117,7 +119,7 @@ app.service("gameService", function($timeout) {
 			}
 		}
 
-		
+		//calculate the numbers for the whole board
 		let calculateAllNumbers = function(minefield) {
 	    	for(let y = 0; y < maxRows; y++) {
 	        	for(let x = 0; x < maxCols; x++) {
@@ -158,7 +160,7 @@ app.service("gameService", function($timeout) {
     		}
 		}
 
-		//Go to the squares with numbers
+		//expand empty squares up to squares with numbers
     	this.expand = function(coord, minefield){
 		    let surroundingCoords = [
 		    	{x: coord.x - 1, y: coord.y - 1},
@@ -176,14 +178,15 @@ app.service("gameService", function($timeout) {
 		    surroundingCoords.forEach(function(coord) {
 		    	if (coord.x >= 0 && coord.x < maxRows && coord.y >= 0 && coord.y < maxCols) {
 		    		let square = getSquare(minefield, coord.x, coord.y)
+		    		//If it's a mine...
 		    		if (square.content === "mine") {
 		    			return;
 		    		}
-		    		
+		    		//If it's a number...
 		    		if (!square.isClicked && square.content !== "empty" && square.content !== "mine") {
 		    			square.isClicked = true;
 		    			return;
-		    		
+		    		//If it's an empty square...
 		    		} else if (!square.isClicked && square.content === "empty") {
 		    			square.isClicked = true;
 		    			return this.expand(coord, minefield)
@@ -193,6 +196,9 @@ app.service("gameService", function($timeout) {
 		    	}
 		    }.bind(this))
 		}
+
+
+
     	return minefield;
 	}
 
